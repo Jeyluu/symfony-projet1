@@ -1,0 +1,10 @@
+# test:
+#   path: /test/{age<\d+>?0} #{La notion entre chevron est la traduction du requirements et le ?0 est la traduction de defaults}
+#   controller: App\Controller\TestController::test
+#   methods: [GET,POST] #Permet d'autoriser ou non la ou les requêtes dans l'array
+#   host: localhost #permet de determiner l'adresse qui permet d'accèder à l'application
+#   schemes: [https,http] #Permet de determiner si la route est accessible en HTTPS ou HTTP ou les deux
+#   # defaults:
+#   #   age: 0
+#   # requirements:
+#   #   age: \d+
