@@ -43,33 +43,19 @@ class TestController
     /**
      * @Route("/hello/{prenom?world}", name="tab1")
      */
-    public function tab1($prenom, LoggerInterface $logger, Calculator $calculator, Slugify $slugify, Environment $twig, Detector $montant)
+    public function tab1($prenom, Environment $twig)
     {
-        //Exercice 1
-        $sup = $montant->detect(150);
-        // dump($sup);
-        $inf = $montant->detect(90);
-        // dump($inf);
 
-        //Possible de faire
-        //dump($montant->detect(90))
+        $html = $twig->render("hello.html.twig", [
+            "prenom" => $prenom,
+            "ages" => [
+                12,
+                18,
+                29,
+                15
+            ],
 
-        //Exercice 2
-        $seuil = $montant->detect(100);
-        dump($seuil);
-
-
-        //Cours
-        dump($twig);
-
-
-        dump($slugify->slugify("Hello Slug"));
-        $logger->info("Mon message de log");
-
-        $tva = $calculator->calcul(100);
-
-        dump($tva);
-
-        return new Response("Hello $prenom !");
+        ]);
+        return new Response($html);
     }
 }
