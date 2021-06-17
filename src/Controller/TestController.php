@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Taxes\Calculator;
+use App\Taxes\Detector;
+use Cocur\Slugify\Slugify;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Psr\Log\LoggerInterface;
+use Twig\Environment;
+
 
 class TestController
 {
@@ -39,8 +43,27 @@ class TestController
     /**
      * @Route("/hello/{prenom?world}", name="tab1")
      */
-    public function tab1($prenom, LoggerInterface $logger, Calculator $calculator)
+    public function tab1($prenom, LoggerInterface $logger, Calculator $calculator, Slugify $slugify, Environment $twig, Detector $montant)
     {
+        //Exercice 1
+        $sup = $montant->detect(150);
+        // dump($sup);
+        $inf = $montant->detect(90);
+        // dump($inf);
+
+        //Possible de faire
+        //dump($montant->detect(90))
+
+        //Exercice 2
+        $seuil = $montant->detect(100);
+        dump($seuil);
+
+
+        //Cours
+        dump($twig);
+
+
+        dump($slugify->slugify("Hello Slug"));
         $logger->info("Mon message de log");
 
         $tva = $calculator->calcul(100);
