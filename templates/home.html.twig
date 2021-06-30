@@ -7,14 +7,18 @@
 
 	<h1>Nos produits Phares</h1>
 	<div class="row">
-		{% for i in 1..3 %}
+		{% for p in products %}
 			<div class="col">
 				<div class="card">
-					<img src="https://picsum.photos/200/200" class="img-fluid" alt="random img">
+					<img src="{{ p.mainPicture }}" class="img-fluid" alt="random img">
 					<div class="card-body">
-						<h4 class="card-title">Superbe chaise en bois</h4>
-						<p class="card-text">Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.</p>
-						<a href="#" class="btn btn-primary btn-sm">Détails</a>
+						<h4 class="card-title">{{ p.name }}</h4>
+						<span class="badge bg-info">{{ p.category.name}}</span>
+						<p class="card-text">{{ p.shortDescription }}</p>
+
+
+						<p>{{ p.price / 100 }}&euro;</p>
+						<a href="{{ path("product_show", {"category_slug":p.category.slug, "slug":p.slug})}}" class="btn btn-primary btn-sm">Détails</a>
 						<a href="#" class="btn btn-success btn-sm">Ajouter</a>
 					</div>
 				</div>
@@ -47,5 +51,4 @@
         } %}
 
 	</div>
-
 {% endblock %}

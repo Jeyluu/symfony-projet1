@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
 
                 $product = new Product;
                 $product->setName($faker->productName())
-                    ->setPrice($faker->price(4000, 2000))
+                    ->setPrice($faker->price(1000, 50000))
                     ->setSlug(strtolower($this->slugger->slug($product->getName())))
                     ->setCategory($category)
                     ->setShotDescription($faker->paragraph())
