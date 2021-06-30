@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Edition de la catégorie
+{% endblock %}
+
+{% block body %}
+	<h1>Vous modifiez la catégorie
+		{{category.name}}</h1>
+
+	{{form_start(formView)}}
+	{{form_errors(formView)}}
+	<div class="row">
+		<div class="col-4">
+			{{form_widget(formView)}}
+		</div>
+	</div><br>
+	<button type="submit" class="btn btn-primary">
+		<i class="fas fa-register"></i>
+		Mettre à jour</button>
+	{{form_end(formView)}}
+{% endblock %}
