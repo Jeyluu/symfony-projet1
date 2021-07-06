@@ -25,6 +25,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Constraints\Collection;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
 {
@@ -75,18 +81,22 @@ class ProductController extends AbstractController
      *
      * @Route("/admin/product/{id}/edit", name="product_edit")
      */
-    public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, SluggerInterface $slugger, UrlGeneratorInterface $urlGenerator)
+    public function edit($id, ProductRepository $productRepository, Request $request, EntityManagerInterface $em, SluggerInterface $slugger, ValidatorInterface $validator)
     {
+
         $product = $productRepository->find($id);
 
-        $form = $this->createForm(ProductType::class, $product); // La variable product permet d'afficher les données
+        $form = $this->createForm(
+            ProductType::class,
+            $product,
+        ); // La variable product permet d'afficher les données
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            dd($form->getData());
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $product->setSlug(strtolower($slugger->slug($product->getName())));
+
+
             $em->flush();
 
             //Redirection
@@ -117,7 +127,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $product->setSlug(strtolower($slugger->slug($product->getName())));
 
