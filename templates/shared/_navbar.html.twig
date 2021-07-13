@@ -20,10 +20,13 @@
 						<i class="fas fa-shopping-cart"></i>
 						<!-- |length permet de donner la longueur du tableau de la fonction getDetailedCartItems -->
 						({{cartService.getDetailedCartItems|length}}) 
-																		Panier
+																																				Panier
 					</a>
 				</li>
 				{% if app.user %}
+					<li class="nav-item">
+						<a href="#" class="nav-link">Mes commandes</a>
+					</li>
 					<li class="nav-item">
 						<a href="{{path("security_logout")}}" class="btn btn-danger">Déconnexion</a>
 					</li>
