@@ -8,13 +8,21 @@
 		<div class="collapse navbar-collapse" id="navbarColor02">
 			<ul class="navbar-nav me-auto">
 				{% for c in categoryRepository.findAll() %}
-
 					<li>
-						<a class="nav-link" href="#">{{c.name}}</a>
+						<a class="nav-link" href="{{ path("product_category", {"slug": c.slug}) }}">{{c.name}}</a>
 					</li>
 				{% endfor %}
 			</ul>
 			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="{{ path("cart_show") }}" class="nav-link">
+
+						<i class="fas fa-shopping-cart"></i>
+						<!-- |length permet de donner la longueur du tableau de la fonction getDetailedCartItems -->
+						({{cartService.getDetailedCartItems|length}}) 
+																		Panier
+					</a>
+				</li>
 				{% if app.user %}
 					<li class="nav-item">
 						<a href="{{path("security_logout")}}" class="btn btn-danger">Déconnexion</a>
@@ -24,7 +32,7 @@
 						<a href="#" class="nav-link">Inscription</a>
 					</li>
 					<li class="nav-item">
-						<a href="{{path("security_login")}}" class="btn  btn-success">Connexion</a>
+						<a href="{{path("security_login")}}" class="btn  btn-outline-success">Connexion</a>
 					</li>
 				{% endif %}
 

@@ -7,21 +7,9 @@
 
 	<h1>Nos produits Phares</h1>
 	<div class="row">
-		{% for p in products %}
+		{% for product in products %}
 			<div class="col">
-				<div class="card">
-					<img src="{{ p.mainPicture }}" class="img-fluid" alt="random img">
-					<div class="card-body">
-						<h4 class="card-title">{{ p.name }}</h4>
-						<span class="badge bg-info">{{ p.category.name}}</span>
-						<p class="card-text">{{ p.shortDescription }}</p>
-
-
-						<p>{{ p.price / 100 }}&euro;</p>
-						<a href="{{ path("product_show", {"category_slug":p.category.slug, "slug":p.slug})}}" class="btn btn-primary btn-sm">Détails</a>
-						<a href="#" class="btn btn-success btn-sm">Ajouter</a>
-					</div>
-				</div>
+				{% include "product/_product_card.html.twig" with {"p": product} %}
 			</div>
 		{% endfor %}
 	</div>
