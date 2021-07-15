@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Purchase;
+use App\Entity\PurchaseItem;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -91,18 +92,34 @@ class AppFixtures extends Fixture
                 ->setPostalCode($faker->postcode())
                 ->setCity($faker->city())
                 ->setUser($faker->randomElement($users))
-                ->setTotal(mt_rand(2000, 30000))
                 ->setPurchasedAt($faker->dateTimeBetween("-6 months"));
+
+            $totalItems = 0;
 
             $selectedProducts = $faker->randomElements($products, mt_rand(3, 5));
 
             foreach ($selectedProducts as $product) {
-                $purchase->addProduct($product);
+
+                $purchaseItem = new PurchaseItem;
+
+                $purchaseItem->setProduct($product)
+                    ->setQuantity(mt_rand(1, 5))
+                    ->setProductName($product->getName())
+                    ->setProductPrice($product->getPrice())
+                    ->setTotal(
+                        $purchaseItem->getProductPrice() * $purchaseItem->getQuantity()
+                    )
+                    ->setPurchase($purchase);
+
+                $totalItems += $purchaseItem->getTotal();
+
+                $manager->persist($purchaseItem);
             }
 
             if ($faker->boolean(90)) {
                 $purchase->setStatus(Purchase::STATUS_PAID);
             }
+            $purchase->setTotal($totalItems);
 
             $manager->persist($purchase);
         }
