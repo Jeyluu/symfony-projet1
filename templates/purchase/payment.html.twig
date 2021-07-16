@@ -7,4 +7,30 @@
 
 {% block body %}
 	<h1>Payez votre commande avec Stripe</h1>
+
+	<!-- Affichage du formulaire de paiement -->
+	<form id="payment-form">
+		<br><div id="card-element"><!--Stripe.js injects the Card Element--></div><br>
+		<button id="submit" class="btn btn-success">
+			<div class="spinner hidden" id="spinner"></div>
+			<span id="button-text">Payer avec Stripe</span>
+		</button>
+		<p id="card-error" role="alert"></p>
+	</form>
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<!-- La fonction parent nous permet de reprendre les données JS sur base.html.twig par exemple et de ne pas les ecraser -->
+	<script src="https://js.stripe.com/v3/"></script>
+	<script>
+		const clientSecret = "{{ clientSecret }}";
+		const stripePublicKey = "{{ stripePublicKey }}"
+		const redirectAfterSuccessUrl = "{{ url("purchase_payment_success", {"id" : purchase.id}) }}"
+	</script>
+
+	<script src="/js/payment.js"></script>
+
+
 {% endblock %}
