@@ -58,8 +58,10 @@ class ProductController extends AbstractController
      *
      * @Route("/{category_slug}/{slug}", name = "product_show", priority=-1)
      */
-    public function show($slug, ProductRepository $productRepository)
+    public function show($slug, ProductRepository $productRepository, Request $request)
     {
+
+
         // dd($urlGenerator->generate("product_category", [
         //     "slug" => "test-de-slug"
         // ])); // 1ère partie est la route de l'URL et la 2ème si il y a des paramètres
