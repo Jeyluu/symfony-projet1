@@ -48,7 +48,7 @@ services:
                 },
             ]
     
-    App\Doctrine\Listener\CategorySLugListener:
+    App\Doctrine\Listener\CategorySlugListener:
         tags: 
             [
                 { 
