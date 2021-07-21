@@ -38,7 +38,7 @@ services:
             $secretKey: "%env(STRIPE_SECRET_KEY)%"
             $publicKey: "%env(STRIPE_PUBLIC_KEY)%"
 
-    App\Doctrine\Listener\ProductSLugListener:
+    App\Doctrine\Listener\ProductSlugListener:
         tags: 
             [
                 { 
